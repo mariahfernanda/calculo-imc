@@ -1,20 +1,24 @@
 package br.senai.sp.jandira.ui;
 
-
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import calculo.CalculoImc;
+
 public class Tela {
 
 	public void criarTela() {
+		Scanner leitor = new Scanner(System.in);
+
+		Color blue = new Color(0, 200, 180);
 
 		JFrame telinha = new JFrame();
 		telinha.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,13 +26,12 @@ public class Tela {
 		telinha.setTitle("Calculadora IMC");
 		telinha.setLayout(null);
 
-
 		JLabel lblTitulo = new JLabel();
 		lblTitulo.setText("CALCULADORA IMC");
-		lblTitulo.setBounds(60,1,300,100);
-		lblTitulo.setFont(new Font("Times new Roman", Font.BOLD, 20));
+		lblTitulo.setBounds(60, 1, 300, 100);
+		lblTitulo.setFont(new Font("Times new Roman", Font.BOLD, 25));
+		lblTitulo.setForeground(blue);
 
-	
 		JLabel lblPeso = new JLabel();
 		lblPeso.setText("Seu peso: ");
 		lblPeso.setBounds(20, 105, 110, 40);
@@ -51,11 +54,12 @@ public class Tela {
 
 		JLabel lblResultado = new JLabel();
 		lblResultado.setText("RESULTADO:");
+		lblResultado.setFont(new Font("Arial Black", Font.BOLD, 11));
 		lblResultado.setBounds(20, 230, 120, 120);
 
 		JLabel lblValorImc = new JLabel();
 		lblValorImc.setText("Valor IMC:");
-		lblValorImc.setBounds(30, 260, 130, 130);
+		lblValorImc.setBounds(30, 260, 1300, 130);
 
 		JLabel lblEstadoImc = new JLabel();
 		lblEstadoImc.setText("Estado IMC:");
@@ -71,36 +75,22 @@ public class Tela {
 		telinha.getContentPane().add(lblValorImc);
 		telinha.getContentPane().add(lblEstadoImc);
 		telinha.setVisible(true);
-		bttCalcular.addMouseListener(new MouseListener() {
-			
+
+		bttCalcular.addActionListener(new ActionListener() {
+
 			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
+			public void actionPerformed(ActionEvent e) {
+
+				CalculoImc imc = new CalculoImc();
+				imc.setPeso(txtPeso.getText());
+				imc.setAltura(txtAltura.getText());
 				
-			}
+				lblValorImc.setText(imc.mostrarImcComoString());
+				
+				lblEstadoImc.setText(imc.mostrarStatusImc());
+				
 			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
+
 			}
 		});
 
